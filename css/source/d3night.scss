@@ -6,8 +6,8 @@
 
 
 // Default mixins and settings -----------------
-@import "../../reveal/css/theme/template/mixins";
-@import "../../reveal/css/theme/template/settings";
+@import "../../reveal.js/css/theme/template/mixins";
+@import "../../reveal.js/css/theme/template/settings";
 // ---------------------------------------------
 
 
@@ -88,5 +88,5 @@ $mainFontSize: 30px;
 
 
 // Theme template ------------------------------
-@import "../../reveal/css/theme/template/theme";
+@import "../../reveal.js/css/theme/template/theme";
 // ---------------------------------------------

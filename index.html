@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>reveal.js - The HTML Presentation Framework</title>
+    <title>Blank Presentation</title>
 
     <meta name="description" content="blank presentation">
     <meta name="author" content="James Webber">
@@ -51,16 +51,28 @@
 
     </div>
 
+    <!-- reveal.js by Hakim El Hattab: github.com/hakimel -->
     <script src="reveal.js/lib/js/head.min.js"></script>
     <script src="reveal.js/js/reveal.min.js"></script>
+
+    <!-- d3.js by Mike Bostock: github.com/mbostock -->
+    <script src="js/d3.v3.min.js"></script>
+
+    <!-- presentation-specific js goes here -->
+
+    <!-- reveal-to-d3 from Pablo Tamarit: github.com/ptamarit -->
+    <script src="js/reveal-to-d3-config.js"></script>
+    <script src="js/reveal-to-d3.js"></script>
 
     <script>
 
       // Full list of configuration options available here:
       // https://github.com/hakimel/reveal.js#configuration
       Reveal.initialize({
+        // HD160 is 1024x768
         width: 800,
         height: 600,
+
         controls: true,
         progress: true,
         history: true,
@@ -75,12 +87,19 @@
 
         // Optional libraries used to extend on reveal.js
         dependencies: [
-          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          { src: 'reveal.js/lib/js/classList.js',
+            condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/markdown/marked.js',
+            condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/markdown/markdown.js',
+            condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal.js/plugin/highlight/highlight.js',
+            async: true,
+            callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js',
+            async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js',
+            async: true, condition: function() { return !!document.body.classList; } }
         ]
       });
 
