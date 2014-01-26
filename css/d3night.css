@@ -28,6 +28,9 @@
   opacity: 0.9;
   fill: #9e9ac8; }
 
+.reveal li {
+  padding: 5px; }
+
 .reveal div.table {
   display: inline-table;
   width: 80%; }
