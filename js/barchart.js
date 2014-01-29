@@ -2,11 +2,12 @@
  * Function to create scatter plots in a consistent manner
  * adapted from Mike Bostock: http://bost.ocks.org/mike/chart/
  */
+'use strict';
 
 function barchart(selection) {
   var margin = { top: 40, right: 40, bottom: 80, left: 60 },
       width = 700, // default width
-      height = 700; // default height
+      height = 700, // default height
       xValue = function(d) { return d[0]; }, // x is categorical
       yValue = function(d) { return +d[1]; },
       xScale = d3.scale.ordinal(),
