@@ -8,7 +8,7 @@ function scatter(selection) {
   var margin = { top: 40, right: 40, bottom: 50, left: 60 },
       width = 700, // default width
       height = 700, // default height
-      nameFn = function(d) { return d.name; }, // name function
+      idValue = function(d) { return d.name; }, // name function
       xValue = function(d) { return +d[0]; },
       yValue = function(d) { return +d[1]; },
       rValue = function(d) { return 3.5; }, // default radius
@@ -28,7 +28,7 @@ function scatter(selection) {
         return [xValue.call(data, d, i),
                 yValue.call(data, d, i),
                 rValue.call(data, d, i),
-                nameFn.call(data, d, i)];
+                idValue.call(data, d, i)];
       });
 
       // Update the x-scale.
@@ -101,7 +101,7 @@ function scatter(selection) {
       circles.exit()
         .transition()
           .attr("r", 0)
-          .remove()
+          .remove();
 
       // Update the x-axis.
       g.select(".d3.x.axis")
@@ -137,8 +137,8 @@ function scatter(selection) {
   };
 
   chart.id = function(_) {
-    if (!arguments.length) return nameFn;
-    nameFn = _;
+    if (!arguments.length) return idValue;
+    idValue = _;
     return chart;
   };
 
@@ -157,7 +157,7 @@ function scatter(selection) {
   chart.r = function(_) {
     if (!arguments.length) return rValue;
     rValue = _;
-    return chart
+    return chart;
   }
 
   chart.xLabel = function(_) {
