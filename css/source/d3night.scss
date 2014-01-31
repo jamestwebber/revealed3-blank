@@ -76,15 +76,16 @@ $mainFontSize: 30px;
 .reveal div.table div.row div {
   display: table-cell;
   width: 30%;
-  padding: 5px;
+  padding: 10px;
 }
 
 .reveal div.table div.colheader {
   font-weight: bold;
-  font-size: 120%;
+  font-size: 125%;
 }
 
 .reveal div.table div.rowlabel {
+  font-weight: bold;
   text-align: left;
 }
 
