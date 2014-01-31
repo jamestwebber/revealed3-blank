@@ -6,3 +6,7 @@ node_modules
 reveal.js
 .sass-cache
 css/*.css
+
+figures
+data
+misc
