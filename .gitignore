@@ -3,5 +3,6 @@
 log/*.log
 tmp/**
 node_modules
+reveal.js
 .sass-cache
 css/*.css
