@@ -1,0 +1,63 @@
+/**
+ * CSS settings for d3 plots
+ *
+ */
+
+.d3 {
+  font-size: 14px;
+}
+
+// want a constant-height header for d3 slides
+.d3 h5 {
+  height: 35px;
+}
+
+.d3 svg {
+  background-color: #ffffff;
+}
+
+.d3 .axis path,
+.d3 .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.d3.spearman .x.axis path, .d3.spearman-comp .x.axis path {
+  display: none;
+}
+
+.d3 .dot, .d3 .bar {
+  stroke: #000;
+  opacity: 0.9;
+  fill: #9e9ac8;
+}
+
+.reveal li {
+  padding: 5px;
+}
+
+.reveal div.table {
+  display: inline-table;
+  width: 80%;
+}
+
+.reveal div.table div.row {
+  display: table-row;
+}
+
+.reveal div.table div.row div {
+  display: table-cell;
+  width: 30%;
+  padding: 10px;
+}
+
+.reveal div.table div.colheader {
+  font-weight: bold;
+  font-size: 125%;
+}
+
+.reveal div.table div.rowlabel {
+  font-weight: bold;
+  text-align: left;
+}

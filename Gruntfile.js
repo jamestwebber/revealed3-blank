@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     sass: {
       main: {
         files: {
-          'css/d3night.css': 'css/source/d3night.scss',
+          'css/d3.css': 'css/source/d3.scss',
         }
       }
     },
