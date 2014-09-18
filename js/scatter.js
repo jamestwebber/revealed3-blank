@@ -6,8 +6,8 @@
 
 function scatter(selection) {
   var margin = { top: 40, right: 40, bottom: 50, left: 60 },
-      width = 700, // default width
-      height = 700, // default height
+      width = 800, // default width
+      height = 600, // default height
       idValue = function(d) { return d.name; }, // name function
       xValue = function(d) { return +d[0]; },
       yValue = function(d) { return +d[1]; },
