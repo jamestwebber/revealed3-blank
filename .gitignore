@@ -4,6 +4,7 @@ log/*.log
 tmp/**
 node_modules
 reveal.js
+package.json
 .sass-cache
 css/*.css
 
