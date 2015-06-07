@@ -1,0 +1,21 @@
+/**
+ * Created by james on 6/6/15.
+ *
+ * This is just a function to let me put giant SVGs into a presentation
+ * without pasting the whole thing in there.
+ */
+'use strict';
+
+// parent is the node to stick the image on,
+// url is the location of the image
+function load_image(parent, url) {
+  d3.xml(url, function(error, data) {
+    if (error) {
+      console.log(error);
+      return;
+    }
+    var xml = d3.select(data); // get the svg element
+
+    parent.node().appendChild(xml.node());
+  });
+}
