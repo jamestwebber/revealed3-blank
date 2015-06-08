@@ -14,8 +14,6 @@ function load_image(parent, url) {
       console.log(error);
       return;
     }
-    var xml = d3.select(data); // get the svg element
-
-    parent.node().appendChild(xml.node());
+    parent.node().appendChild(d3.select(data).select("svg").node());
   });
 }
