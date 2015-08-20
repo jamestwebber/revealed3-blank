@@ -61,3 +61,12 @@
   font-weight: bold;
   text-align: left;
 }
+
+.reveal .slides section .fragment.bold {
+  opacity: 1;
+  visibility: visible;
+
+  &.visible {
+    font-weight: bold;
+  }
+}
