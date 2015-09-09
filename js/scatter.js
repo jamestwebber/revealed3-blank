@@ -4,7 +4,7 @@
  */
 'use strict';
 
-function scatter(selection) {
+function scatter() {
   var margin = { top: 40, right: 40, bottom: 50, left: 60 },
       width = 800, // default width
       height = 600, // default height
@@ -17,27 +17,18 @@ function scatter(selection) {
       xAxis = d3.svg.axis().scale(xScale).orient("bottom"),
       yAxis = d3.svg.axis().scale(yScale).orient("left"),
       xLabel = "", // default is no labels
-      yLabel = "";
+      yLabel = "",
+      _trans = function(s) { return s; }; // transition function
 
   function chart(selection) {
     selection.each(function(data) {
-
-      // Convert data to standard representation greedily;
-      // this is needed for nondeterministic accessors.
-      data = data.map(function(d, i) {
-        return [xValue.call(data, d, i),
-                yValue.call(data, d, i),
-                rValue.call(data, d, i),
-                idValue.call(data, d, i)];
-      });
-
       // Update the x-scale.
-      xScale.domain(d3.extent(data, function(d) { return d[0]; }))
+      xScale.domain(d3.extent(data, xValue))
         .range([0, width - margin.left - margin.right])
         .nice();
 
       // Update the y-scale.
-      yScale.domain(d3.extent(data, function(d) { return d[1]; }))
+      yScale.domain(d3.extent(data, yValue))
         .range([height - margin.top - margin.bottom, 0])
         .nice();
 
@@ -74,28 +65,21 @@ function scatter(selection) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       // Update the scatter plot
-      var circles = g.selectAll(".dot")
-        .data(data, function(d) { return d[3]; });
+      var circles = g.selectAll(".dot").data(data, idValue);
 
       // transition existing points
-      circles.transition()
-        .attr("r", function(d) { return d[2]; })
-        .transition()
-          .delay(function(d, i) { return 250 + i * 10; })
-          .duration(250 + data.length * 10)
-          .attr("cx", function(d) { return xScale(d[0]); })
-          .attr("cy", function(d) { return yScale(d[1]); });
+      circles.transition().call(_trans);
 
       // create any new ones
       circles.enter()
         .append("circle")
           .attr("class", "d3 dot")
           .attr("r", 0)
-          .attr("cx", function(d) { return xScale(d[0]); })
-          .attr("cy", function(d) { return yScale(d[1]); })
+          .attr("cx", function(d) { return xScale(xValue(d)); })
+          .attr("cy", function(d) { return yScale(yValue(d)); })
         .transition()
           .duration(750)
-          .attr("r", function(d) {return d[2]; });
+          .attr("r", rValue);
 
       // remove any old ones
       circles.exit()
@@ -158,7 +142,7 @@ function scatter(selection) {
     if (!arguments.length) return rValue;
     rValue = _;
     return chart;
-  }
+  };
 
   chart.xLabel = function(_) {
     if (!arguments.length) return xLabel;
@@ -170,6 +154,22 @@ function scatter(selection) {
     if (!arguments.length) return yLabel;
     yLabel = _;
     return chart;
+  };
+
+  chart.transition = function(_) {
+    if (!arguments.length) return _trans;
+    _trans = _;
+    return chart;
+  };
+
+  chart.xScale = function(_) {
+    if (!arguments.length) return xScale;
+    return xScale(_);
+  };
+
+  chart.yScale = function(_) {
+    if (!arguments.length) return yScale;
+    return yScale(_);
   };
 
   return chart;
