@@ -1,6 +1,8 @@
 /* global module:false */
 module.exports = function(grunt) {
 	var port = grunt.option('port') || 8000;
+	var base = grunt.option('base') || '.';
+
 	// Project configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -11,12 +13,12 @@ module.exports = function(grunt) {
 				' * http://lab.hakim.se/reveal-js\n' +
 				' * MIT licensed\n' +
 				' *\n' +
-				' * Copyright (C) 2015 Hakim El Hattab, http://hakim.se\n' +
+				' * Copyright (C) 2016 Hakim El Hattab, http://hakim.se\n' +
 				' */'
 		},
 
 		qunit: {
-			files: [ 'reveal.js/test/*.html' ]
+			files: [ 'test/*.html' ]
 		},
 
 		uglify: {
@@ -24,29 +26,40 @@ module.exports = function(grunt) {
 				banner: '<%= meta.banner %>\n'
 			},
 			build: {
-				src: 'reveal.js/js/reveal.js',
-				dest: 'reveal.js/js/reveal.min.js'
+				src: 'js/reveal.js',
+				dest: 'js/reveal.min.js'
 			}
 		},
 
 		sass: {
 			core: {
 				files: {
-                    'css/d3.css': 'css/source/d3.scss',
+					'css/reveal.css': 'css/reveal.scss',
 				}
 			},
+			themes: {
+				files: [
+					{
+						expand: true,
+						cwd: 'css/theme/source',
+						src: ['*.scss'],
+						dest: 'css/theme',
+						ext: '.css'
+					}
+				]
+			}
 		},
 
 		autoprefixer: {
 			dist: {
-				src: 'reveal.js/css/reveal.css'
+				src: 'css/reveal.css'
 			}
 		},
 
 		cssmin: {
 			compress: {
 				files: {
-					'reveal.js/css/reveal.min.css': [ 'reveal.js/css/reveal.css' ]
+					'css/reveal.min.css': [ 'css/reveal.css' ]
 				}
 			}
 		},
@@ -73,16 +86,16 @@ module.exports = function(grunt) {
 					exports: false
 				}
 			},
-			files: [ 'Gruntfile.js', 'reveal.js/js/reveal.js' ]
+			files: [ 'Gruntfile.js', 'js/reveal.js' ]
 		},
 
 		connect: {
 			server: {
 				options: {
 					port: port,
-					base: '.',
-                    livereload: true,
-                    open: true
+					base: base,
+					livereload: true,
+					open: true
 				}
 			}
 		},
@@ -94,21 +107,33 @@ module.exports = function(grunt) {
 				'js/**',
 				'lib/**',
 				'images/**',
-				'plugin/**'
+				'plugin/**',
+				'**.md'
 			]
 		},
 
 		watch: {
-            options: {
-                livereload: true
-            },
 			js: {
-				files: [ 'Gruntfile.js', 'reveal.js/js/reveal.js' ],
+				files: [ 'Gruntfile.js', 'js/reveal.js' ],
 				tasks: 'js'
 			},
-            html: {
-                files: [ 'index.html']
-            }
+			theme: {
+				files: [ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ],
+				tasks: 'css-themes'
+			},
+			css: {
+				files: [ 'css/reveal.scss' ],
+				tasks: 'css-core'
+			},
+			html: {
+				files: [ '*.html']
+			},
+			markdown: {
+				files: [ '*.md' ]
+			},
+			options: {
+				livereload: true
+			}
 		}
 
 	});
@@ -129,6 +154,9 @@ module.exports = function(grunt) {
 
 	// JS task
 	grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
+
+	// Theme CSS
+	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
 
 	// Core framework CSS
 	grunt.registerTask( 'css-core', [ 'sass:core', 'autoprefixer', 'cssmin' ] );
