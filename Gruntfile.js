@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 		},
 
 		qunit: {
-			files: [ 'test/*.html' ]
+			files: [ 'reveal.js/test/*.html' ]
 		},
 
 		uglify: {
@@ -26,24 +26,25 @@ module.exports = function(grunt) {
 				banner: '<%= meta.banner %>\n'
 			},
 			build: {
-				src: 'js/reveal.js',
-				dest: 'js/reveal.min.js'
+				src: 'reveal.js/js/reveal.js',
+				dest: 'reveal.js/js/reveal.min.js'
 			}
 		},
 
 		sass: {
 			core: {
 				files: {
-					'css/reveal.css': 'css/reveal.scss',
+					'css/customization.css': css/source/customization.scss',
+					'reveal.js/css/reveal.css': 'reveal.js/css/reveal.scss',
 				}
 			},
 			themes: {
 				files: [
 					{
 						expand: true,
-						cwd: 'css/theme/source',
+						cwd: 'reveal.js/css/theme/source',
 						src: ['*.scss'],
-						dest: 'css/theme',
+						dest: 'reveal.js/css/theme',
 						ext: '.css'
 					}
 				]
@@ -52,14 +53,14 @@ module.exports = function(grunt) {
 
 		autoprefixer: {
 			dist: {
-				src: 'css/reveal.css'
+				src: 'reveal.js/css/reveal.css'
 			}
 		},
 
 		cssmin: {
 			compress: {
 				files: {
-					'css/reveal.min.css': [ 'css/reveal.css' ]
+					'reveal.js/css/reveal.min.css': [ 'reveal.js/css/reveal.css' ]
 				}
 			}
 		},
@@ -86,7 +87,7 @@ module.exports = function(grunt) {
 					exports: false
 				}
 			},
-			files: [ 'Gruntfile.js', 'js/reveal.js' ]
+			files: [ 'Gruntfile.js', 'reveal.js/js/reveal.js' ]
 		},
 
 		connect: {
@@ -114,15 +115,15 @@ module.exports = function(grunt) {
 
 		watch: {
 			js: {
-				files: [ 'Gruntfile.js', 'js/reveal.js' ],
+				files: [ 'Gruntfile.js', 'reveal.js/js/reveal.js' ],
 				tasks: 'js'
 			},
 			theme: {
-				files: [ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ],
+				files: [ 'reveal.js/css/theme/source/*.scss', 'reveal.js/css/theme/template/*.scss' ],
 				tasks: 'css-themes'
 			},
 			css: {
-				files: [ 'css/reveal.scss' ],
+				files: [ 'reveal.js/css/reveal.scss' ],
 				tasks: 'css-core'
 			},
 			html: {
