@@ -8,8 +8,8 @@
 
 
 // Default mixins and settings -----------------
-@import "../template/mixins";
-@import "../template/settings";
+@import "../../../reveal.js/css/theme/template/mixins";
+@import "../../../reveal.js/css/theme/template/settings";
 // ---------------------------------------------
 
 
@@ -33,5 +33,5 @@ section.has-dark-background {
 
 
 // Theme template ------------------------------
-@import "../template/theme";
+@import "../../../reveal.js/css/theme/template/theme";
 // ---------------------------------------------

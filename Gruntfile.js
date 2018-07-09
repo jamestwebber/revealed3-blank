@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 			},
 			compress: {
 				src: 'reveal.js/css/reveal.css',
-				dest': 'reveal.js/css/reveal.min.css'
+				dest: 'reveal.js/css/reveal.min.css'
 			}
 		},
 
@@ -108,8 +108,8 @@ module.exports = function(grunt) {
 					'index.html',
 					'reveal.js/css/**', 'css/**',
 					'reveal.js/js/**', 'js/**',
-					'reveal.js/lib/**', 'lib/**'
-					'reveal.js/images/**', 'images/**'
+					'reveal.js/lib/**', 'lib/**',
+					'reveal.js/images/**', 'images/**',
 					'reveal.js/plugin/**',
 					'**.md'
 				],
