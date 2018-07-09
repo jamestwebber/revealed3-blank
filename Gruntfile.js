@@ -36,7 +36,7 @@ module.exports = function(grunt) {
 
 		sass: {
 			core: {
-				src: 'css/customization.scss',
+				src: 'css/source/customization.scss',
 				dest: 'css/customization.css'
 			},
 			themes: {

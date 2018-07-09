@@ -63,6 +63,7 @@
 
         controls: false,
         progress: false,
+        history: true,
 
         theme: Reveal.getQueryHash().theme,
         transition: 'fade',
@@ -75,7 +76,8 @@
           { src: 'reveal.js/plugin/highlight/highlight.js',
             async: true,
             callback: function() { hljs.initHighlightingOnLoad(); }
-          }
+          },
+          { src: 'reveal.js/plugin/math/math.js', async: true }
         ]
       });
     </script>
