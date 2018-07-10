@@ -33,33 +33,21 @@
   fill: #9e9ac8;
 }
 
+/**
+ * Other customization
+ *
+ */
+
+.reveal section img {
+  border: 0px;
+}
+
 .reveal li {
   padding: 5px;
 }
 
-.reveal div.table {
-  display: inline-table;
-  width: 80%;
-}
-
-.reveal div.table div.row {
-  display: table-row;
-}
-
-.reveal div.table div.row div {
-  display: table-cell;
-  width: 30%;
-  padding: 10px;
-}
-
-.reveal div.table div.colheader {
-  font-weight: bold;
-  font-size: 125%;
-}
-
-.reveal div.table div.rowlabel {
-  font-weight: bold;
-  text-align: left;
+.reveal table th, .reveal table td {
+  border-bottom: 0px;
 }
 
 .reveal .slides section .fragment.bold {

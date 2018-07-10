@@ -1,7 +1,9 @@
 /* global module:false */
 module.exports = function(grunt) {
 	var port = grunt.option('port') || 8000;
-	var base = grunt.option('base') || '.';
+	var root = grunt.option('root') || '.';
+
+	if (!Array.isArray(root)) root = [root];
 
 	// Project configuration
 	grunt.initConfig({
@@ -10,10 +12,10 @@ module.exports = function(grunt) {
 			banner:
 				'/*!\n' +
 				' * reveal.js <%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd, HH:MM") %>)\n' +
-				' * http://lab.hakim.se/reveal-js\n' +
+				' * http://revealjs.com\n' +
 				' * MIT licensed\n' +
 				' *\n' +
-				' * Copyright (C) 2016 Hakim El Hattab, http://hakim.se\n' +
+				' * Copyright (C) 2017 Hakim El Hattab, http://hakim.se\n' +
 				' */'
 		},
 
@@ -23,7 +25,8 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-				banner: '<%= meta.banner %>\n'
+				banner: '<%= meta.banner %>\n',
+				screwIE8: false
 			},
 			build: {
 				src: 'reveal.js/js/reveal.js',
@@ -33,35 +36,31 @@ module.exports = function(grunt) {
 
 		sass: {
 			core: {
-				files: {
-					'css/customization.css': 'css/source/customization.scss',
-					'reveal.js/css/reveal.css': 'reveal.js/css/reveal.scss',
-				}
+				src: 'css/source/customization.scss',
+				dest: 'css/customization.css'
 			},
 			themes: {
-				files: [
-					{
-						expand: true,
-						cwd: 'reveal.js/css/theme/source',
-						src: ['*.scss'],
-						dest: 'reveal.js/css/theme',
-						ext: '.css'
-					}
-				]
+				expand: true,
+				cwd: 'css/theme/source',
+				src: ['*.sass', '*.scss'],
+				dest: 'css/theme',
+				ext: '.css'
 			}
 		},
 
 		autoprefixer: {
-			dist: {
+			core: {
 				src: 'reveal.js/css/reveal.css'
 			}
 		},
 
 		cssmin: {
+			options: {
+				compatibility: 'ie9'
+			},
 			compress: {
-				files: {
-					'reveal.js/css/reveal.min.css': [ 'reveal.js/css/reveal.css' ]
-				}
+				src: 'reveal.js/css/reveal.css',
+				dest: 'reveal.js/css/reveal.min.css'
 			}
 		},
 
@@ -70,7 +69,8 @@ module.exports = function(grunt) {
 				curly: false,
 				eqeqeq: true,
 				immed: true,
-				latedef: true,
+				esnext: true,
+				latedef: 'nofunc',
 				newcap: true,
 				noarg: true,
 				sub: true,
@@ -94,23 +94,27 @@ module.exports = function(grunt) {
 			server: {
 				options: {
 					port: port,
-					base: base,
+					base: root,
 					livereload: true,
-					open: true
+					open: true,
+					useAvailablePort: true
 				}
 			}
 		},
 
 		zip: {
-			'reveal-js-presentation.zip': [
-				'index.html',
-				'css/**',
-				'js/**',
-				'lib/**',
-				'images/**',
-				'plugin/**',
-				'**.md'
-			]
+			bundle: {
+				src: [
+					'index.html',
+					'reveal.js/css/**', 'css/**',
+					'reveal.js/js/**', 'js/**',
+					'reveal.js/lib/**', 'lib/**',
+					'reveal.js/images/**', 'images/**',
+					'reveal.js/plugin/**',
+					'**.md'
+				],
+				dest: 'reveal-js-presentation.zip'
+			}
 		},
 
 		watch: {
@@ -119,7 +123,12 @@ module.exports = function(grunt) {
 				tasks: 'js'
 			},
 			theme: {
-				files: [ 'reveal.js/css/theme/source/*.scss', 'reveal.js/css/theme/template/*.scss' ],
+				files: [
+					'css/theme/source/*.sass',
+					'css/theme/source/*.scss',
+					'css/theme/template/*.sass',
+					'css/theme/template/*.scss'
+				],
 				tasks: 'css-themes'
 			},
 			css: {
@@ -127,27 +136,37 @@ module.exports = function(grunt) {
 				tasks: 'css-core'
 			},
 			html: {
-				files: [ '*.html']
+				files: root.map(path => path + '/*.html')
 			},
 			markdown: {
-				files: [ '*.md' ]
+				files: root.map(path => path + '/*.md')
 			},
 			options: {
 				livereload: true
 			}
+		},
+
+		retire: {
+			js: [
+				'reveal.js/js/reveal.js',
+				'reveal.js/lib/js/*.js',
+				'reveal.js/plugin/**/*.js'
+			],
+			node: [ '.' ]
 		}
 
 	});
 
 	// Dependencies
-	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-sass' );
-	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-autoprefixer' );
+	grunt.loadNpmTasks( 'grunt-retire' );
+	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-zip' );
 
 	// Default task
