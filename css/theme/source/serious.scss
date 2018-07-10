@@ -35,3 +35,7 @@ section.has-dark-background {
 // Theme template ------------------------------
 @import "../../../reveal.js/css/theme/template/theme";
 // ---------------------------------------------
+
+.reveal table th, .reveal table td {
+	border-bottom: 0px;
+}
