@@ -9,11 +9,7 @@
 // parent is the node to stick the image on,
 // url is the location of the image
 function load_image(parent, url) {
-  d3.xml(url, function(error, data) {
-    if (error) {
-      console.log(error);
-      return;
-    }
+  d3.xml(url).then(function(data) {
     parent.node().appendChild(d3.select(data).select("svg").node());
   });
 }
