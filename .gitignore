@@ -7,6 +7,7 @@ reveal.js
 package.json
 .sass-cache
 css/*.css
+dist
 
 figures
 data
