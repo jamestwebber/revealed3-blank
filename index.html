@@ -6,21 +6,15 @@
 
     <title>Blank Presentation</title>
 
-    <link rel="stylesheet" href="reveal.js/css/reveal.css">
-    <link rel="stylesheet" href="css/theme/serious.css">
-    <link rel="stylesheet" href="css/customization.css">
+    <link rel="stylesheet" href="reveal.js/dist/reset.css">
+    <link rel="stylesheet" href="reveal.js/dist/reveal.css">
 
-    <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+    <!-- custom styling -->
+    <link rel="stylesheet" href="dist/theme/serious.css">
+    <link rel="stylesheet" href="dist/customization.css">
 
-    <!-- Printing and PDF exports -->
-    <script>
-      var link = document.createElement( 'link' );
-      link.rel = 'stylesheet';
-      link.type = 'text/css';
-      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
-      document.getElementsByTagName( 'head' )[0].appendChild( link );
-    </script>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="reveal.js/plugin/highlight/monokai.css">
   </head>
 
   <body>
@@ -42,8 +36,12 @@
     </div>
 
     <!-- reveal.js by Hakim El Hattab: github.com/hakimel -->
-    <script src="reveal.js/lib/js/head.min.js"></script>
-    <script src="reveal.js/js/reveal.js"></script>
+    <script src="reveal.js/dist/reveal.js"></script>
+    <script src="reveal.js/plugin/notes/notes.js"></script>
+    <script src="reveal.js/plugin/markdown/markdown.js"></script>
+    <script src="reveal.js/plugin/highlight/highlight.js"></script>
+    <script src="reveal.js/plugin/math/math.js"></script>
+
 
     <!-- d3.js by Mike Bostock: github.com/mbostock -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
@@ -54,10 +52,11 @@
     <!--<script src="js/reveal-to-d3.js"></script>-->
 
     <script>
-      // More info about config & dependencies:
-      // - https://github.com/hakimel/reveal.js#configuration
-      // - https://github.com/hakimel/reveal.js#dependencies
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
       Reveal.initialize({
+        hash: true,
         width: 800,
         height: 600,
 
@@ -65,20 +64,9 @@
         progress: false,
         history: true,
 
-        theme: Reveal.getQueryHash().theme,
         transition: 'fade',
-
-        // Optional libraries used to extend on reveal.js
-        dependencies: [
-          { src: 'reveal.js/plugin/markdown/marked.js' },
-          { src: 'reveal.js/plugin/markdown/markdown.js' },
-          { src: 'reveal.js/plugin/notes/notes.js', async: true },
-          { src: 'reveal.js/plugin/highlight/highlight.js',
-            async: true,
-            callback: function() { hljs.initHighlightingOnLoad(); }
-          },
-          { src: 'reveal.js/plugin/math/math.js', async: true }
-        ]
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath ]
       });
     </script>
   </body>
